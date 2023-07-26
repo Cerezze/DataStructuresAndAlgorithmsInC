@@ -141,6 +141,33 @@ void getMin(struct vec *newvec){
     printf("\n");
 }
 
+int Get(struct vec *newvec, int idx){
+    
+    for(int i = 0; i < newvec->size; i++){
+        if(i == idx){
+            return newvec->arr[i];
+        }
+    }
+    
+    return 0;
+}
+
+int Set(struct vec *newvec, int idx, int num){
+    if(idx < newvec->cap){
+        for(int i = 0; i < newvec->size; i++){
+            if(i == idx){
+                newvec->arr[i] = num; 
+
+                return 1;
+            }
+        }
+    }else{
+        printf("numbah too huge!!");
+    }
+    
+    return 0;
+}
+
 void displayVector(struct vec *newvec){
     printf("\n");
     printf("v%d", newvec->id);
@@ -152,6 +179,49 @@ void displayVector(struct vec *newvec){
         }
     }
     printf(">  ");
+}
+
+//MUST FIX DISPLAY VECTOR
+void reverseVec(struct vec *newvec){
+    //printf("%d", newvec->size);
+    
+    for(int i = 0; i < newvec->size; i++){
+        printf("%d", newvec->arr[i]);
+    }
+    
+    int i = 0;
+    int j = newvec->size - 1;
+    int temp = 0;
+    
+    while(i < j){
+        temp = newvec->arr[i];
+        newvec->arr[i] = newvec->arr[j];
+        newvec->arr[j] = temp;
+        
+        i++;
+        j--;
+    }
+    
+    for(int i = 0; i < newvec->size; i++){
+        printf("%d", newvec->arr[i]);
+    }
+    
+    //displayVector(&newvec);
+}
+
+int getAvg(struct vec *newvec){
+    int average;
+    int total = 0;
+    int i = 0;
+    
+    while(i < newvec->size){
+        total += newvec->arr[i];
+        i++;
+    }
+    
+    average = total/newvec->size;
+    
+    return average;
 }
 
 void addAllVectors(struct vec arr [], int arrSize, int sizeOfVectorSet){
@@ -230,9 +300,15 @@ int main()
 {
     struct vec vec1;
     
-    constructVec(3, &vec1);
+    constructVec(4, &vec1);
     
-    printf("HELLO");
+    push(10, &vec1);
+    push(10, &vec1);
+    push(10, &vec1);
+    push(1, &vec1);
+    
+    printf("%d", getAvg(&vec1));
+    //displayVector(&vec1);
     
     destroyVec(&vec1);
 
